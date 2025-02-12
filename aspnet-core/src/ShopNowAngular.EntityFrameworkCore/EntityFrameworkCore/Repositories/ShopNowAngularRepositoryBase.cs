@@ -1,7 +1,14 @@
-﻿using Abp.Domain.Entities;
+﻿using Abp.Data;
+using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Abp.EntityFrameworkCore;
 using Abp.EntityFrameworkCore.Repositories;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
+using System.Data;
+using System.Threading.Tasks;
+using ShopNowAngular.EntityFrameworkCore.Extensions;
 
 namespace ShopNowAngular.EntityFrameworkCore.Repositories
 {
@@ -19,6 +26,54 @@ namespace ShopNowAngular.EntityFrameworkCore.Repositories
         }
 
         // Add your common methods for all repositories
+        protected readonly IActiveTransactionProvider _transactionProvider;
+        protected ShopNowAngularRepositoryBase(IDbContextProvider<ShopNowAngularDbContext> dbContextProvider, IActiveTransactionProvider transactionProvider)
+            : base(dbContextProvider)
+        {
+            _transactionProvider = transactionProvider;
+        }
+        protected async Task<TOutput> ExecuteSearchStoreProcedureWithReturnDto<TInput, TOutput>(TInput input, string spName) where TInput : class where TOutput : class, new()
+        {
+            TOutput outputDtos = new TOutput();
+            using (var command = CreateCommand(spName, CommandType.StoredProcedure, _transactionProvider, input.GetParameters().ToArray()))
+            {
+                using (DbDataReader dataReader = await command.ExecuteReaderAsync())
+                {
+                    if (await dataReader.ReadAsync())
+                        outputDtos = dataReader.GetObject<TOutput>();
+                }
+            }
+            return outputDtos;
+        }
+        protected DbCommand CreateCommand(string commandText, CommandType commandType, IActiveTransactionProvider activeTransactionProvider,
+            params SqlParameter[] parameters)
+        {
+
+            var command = this.GetDbContext().Database.GetDbConnection().CreateCommand();
+            command.CommandText = commandText;
+            command.CommandType = commandType;
+            command.Transaction = GetActiveTransaction(activeTransactionProvider);
+
+            foreach (SqlParameter parameter in parameters)
+            {
+                DbParameter dbParameter = command.CreateParameter();
+                dbParameter.ParameterName = parameter.ParameterName;
+                dbParameter.DbType = parameter.DbType;
+                dbParameter.Direction = parameter.Direction;
+                dbParameter.Value = parameter.Value;
+                command.Parameters.Add(dbParameter);
+            }
+
+            return command;
+        }
+        private DbTransaction GetActiveTransaction(IActiveTransactionProvider _transactionProvider)
+        {
+            return (DbTransaction)_transactionProvider.GetActiveTransaction(new ActiveTransactionProviderArgs
+                {
+                    {"ContextType", typeof(ShopNowAngularDbContext) },
+                    {"MultiTenancySide", MultiTenancySide }
+                });
+        }
     }
 
     /// <summary>
