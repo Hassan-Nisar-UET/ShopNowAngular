@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { AccountLanguagesComponent } from './layout/account-languages.component';
 import { AccountHeaderComponent } from './layout/account-header.component';
 import { AccountFooterComponent } from './layout/account-footer.component';
+import { ButtonModule } from 'primeng/button';
 
 // tenants
 import { TenantChangeComponent } from './tenant/tenant-change.component';
@@ -20,6 +21,7 @@ import { TenantChangeDialogComponent } from './tenant/tenant-change-dialog.compo
 
 @NgModule({
     imports: [
+        ButtonModule,
         CommonModule,
         FormsModule,
         HttpClientModule,

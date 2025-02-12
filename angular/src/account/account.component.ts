@@ -24,3 +24,5 @@ export class AccountComponent extends AppComponentBase implements OnInit {
     this.renderer.addClass(document.body, 'login-page');
   }
 }
+
+export { Component };

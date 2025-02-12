@@ -160,6 +160,15 @@
     vite "5.3.2"
     watchpack "2.4.1"
 
+"@angular/cdk@^19.1.4":
+  version "19.1.4"
+  resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-19.1.4.tgz"
+  integrity sha512-PyvJ1VbYjW8tVnVHvcasiqI9eNWf8EJnr0in1QWnhpSbpVpVpc4yjbgnu2pTrW9mPo/YjV4pF+qs6E97y9mdYQ==
+  dependencies:
+    tslib "^2.3.0"
+  optionalDependencies:
+    parse5 "^7.1.2"
+
 "@angular/cli@^18.1.2":
   version "18.1.2"
   resolved "https://registry.npmjs.org/@angular/cli/-/cli-18.1.2.tgz"
@@ -183,7 +192,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^17.0.3", "@angular/common@^18.0.1", "@angular/common@^18.1.2", "@angular/common@>=13.0.0", "@angular/common@18.1.2":
+"@angular/common@^17.0.0 || ^18.0.0", "@angular/common@^17.0.3", "@angular/common@^18.0.1", "@angular/common@^18.1.2", "@angular/common@^19.0.0 || ^20.0.0", "@angular/common@>=13.0.0", "@angular/common@18.1.2":
   version "18.1.2"
   resolved "https://registry.npmjs.org/@angular/common/-/common-18.1.2.tgz"
   integrity sha512-PXzRH5fCSmjGwNvopPfwAxcMqQPFLamyIjVJa5mwTyk5FLhKNrNecSo7m6ZpsfLPsW5Ipk/ups9RJD0Mep82Hw==
@@ -211,14 +220,14 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^17.0.3", "@angular/core@^18.0.1", "@angular/core@^18.1.2", "@angular/core@>=13.0.0", "@angular/core@18.1.2":
+"@angular/core@^17.0.0 || ^18.0.0", "@angular/core@^17.0.3", "@angular/core@^18.0.1", "@angular/core@^18.1.2", "@angular/core@^19.0.0 || ^20.0.0", "@angular/core@>=13.0.0", "@angular/core@18.1.2":
   version "18.1.2"
   resolved "https://registry.npmjs.org/@angular/core/-/core-18.1.2.tgz"
   integrity sha512-/wiewpA8KpEkXf3E/Q0+0H3Dgg5zCG/+vzAUVIOGP+0tYk8no0NUecHyXLjz0hRQOJ6a3zMKVtZO3wYl8WNGEg==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/forms@^18.0.1", "@angular/forms@^18.1.2":
+"@angular/forms@^17.0.0 || ^18.0.0", "@angular/forms@^18.0.1", "@angular/forms@^18.1.2":
   version "18.1.2"
   resolved "https://registry.npmjs.org/@angular/forms/-/forms-18.1.2.tgz"
   integrity sha512-R0drnkmiU74XHMKUnrgxJNW3WHtKKsVMualyUANR26+SH07ZZFvuvXTx7u0pbh0d1JFK3hlWvZO7X52x1bH37w==
@@ -5622,7 +5631,7 @@ parse5-sax-parser@^7.0.0:
   dependencies:
     parse5 "^7.0.0"
 
-parse5@^7.0.0:
+parse5@^7.0.0, parse5@^7.1.2:
   version "7.1.2"
   resolved "https://registry.npmjs.org/parse5/-/parse5-7.1.2.tgz"
   integrity sha512-Czj1WaSVpaoj0wbhMzLmWD69anp2WH7FXMB9n1Sy8/ZFF9jolSQVMu1Ij5WIyGmcBmhk7EOndpO4mIpihVqAXw==
@@ -5811,6 +5820,18 @@ postcss-value-parser@^4.1.0, postcss-value-parser@^4.2.0:
     nanoid "^3.3.7"
     picocolors "^1.0.0"
     source-map-js "^1.2.0"
+
+primeicons@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/primeicons/-/primeicons-7.0.0.tgz"
+  integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
+
+primeng@^17.18.15:
+  version "17.18.15"
+  resolved "https://registry.npmjs.org/primeng/-/primeng-17.18.15.tgz"
+  integrity sha512-66iKLPBxuZguebSylKbAst5V3Qz+2dbzT+oCHQnCbv4Gu4JH6WqbBJWr283HacQB1mUNGvyxgcHVVPhQbnEXvA==
+  dependencies:
+    tslib "^2.3.0"
 
 proc-log@^4.0.0, proc-log@^4.1.0, proc-log@^4.2.0:
   version "4.2.0"
@@ -6229,7 +6250,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-"rxjs@^6.5.3 || ^7.4.0", rxjs@^7.8.1, rxjs@7.8.1:
+"rxjs@^6.0.0 || ^7.8.1", "rxjs@^6.5.3 || ^7.4.0", rxjs@^7.8.1, rxjs@7.8.1:
   version "7.8.1"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.8.1.tgz"
   integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==

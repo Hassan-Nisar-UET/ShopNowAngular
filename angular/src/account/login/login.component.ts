@@ -6,7 +6,8 @@ import { AppAuthService } from '@shared/auth/app-auth.service';
 
 @Component({
   templateUrl: './login.component.html',
-  animations: [accountModuleAnimation()]
+  animations: [accountModuleAnimation()],
+
 })
 export class LoginComponent extends AppComponentBase {
   submitting = false;
