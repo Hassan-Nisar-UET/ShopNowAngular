@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using Abp.Authorization.Users;
 using Abp.Extensions;
+using Microsoft.AspNetCore.Builder;
 
 namespace ShopNowAngular.Authorization.Users
 {
-    public class User : AbpUser<User>
+    public class User : UserExtension
     {
         public const string DefaultPassword = "123qwe";
 

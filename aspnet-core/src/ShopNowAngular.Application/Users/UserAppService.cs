@@ -211,7 +211,13 @@ namespace ShopNowAngular.Users
 
             return true;
         }
-
+        [AbpAllowAnonymous]
+        public async Task<User> GetUserEntityByNameAndEmail(string usernameAndEmail)
+        {
+            return await Repository.GetAll()
+                                            .Where(u => u.EmailAddress == usernameAndEmail && u.IsActive)
+                                            .FirstOrDefaultAsync();
+        }
         public async Task<bool> ResetPassword(ResetPasswordDto input)
         {
             if (_abpSession.UserId == null)

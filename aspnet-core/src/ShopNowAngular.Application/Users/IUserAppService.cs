@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using ShopNowAngular.Authorization.Users;
 using ShopNowAngular.Roles.Dto;
 using ShopNowAngular.Users.Dto;
 
@@ -14,5 +15,6 @@ namespace ShopNowAngular.Users
         Task ChangeLanguage(ChangeUserLanguageDto input);
 
         Task<bool> ChangePassword(ChangePasswordDto input);
+        Task<User> GetUserEntityByNameAndEmail(string usernameAndEmail);
     }
 }
