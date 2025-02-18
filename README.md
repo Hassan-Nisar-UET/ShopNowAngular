@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+# ShopNowAngular
+=======
+>>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
 # Important
 
 Issues of this repository are tracked on https://github.com/aspnetboilerplate/aspnetboilerplate. Please create your issues on https://github.com/aspnetboilerplate/aspnetboilerplate/issues.
@@ -35,3 +41,7 @@ Create & download your project from https://aspnetboilerplate.com/Templates
 # License
 
 [MIT](LICENSE).
+<<<<<<< HEAD
+=======
+>>>>>>> 8dbb685 (Your commit message)
+>>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa

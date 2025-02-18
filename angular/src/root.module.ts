@@ -18,7 +18,10 @@ import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
 
 import { RootComponent } from './root.component';
 import { AppInitializer } from './app-initializer';
+<<<<<<< HEAD
 import { MatButtonModule } from '@angular/material/button';
+=======
+>>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
 
 export function getCurrentLanguage(): string {
   if (abp.localization.currentLanguage.name) {
@@ -32,7 +35,10 @@ export function getCurrentLanguage(): string {
 @NgModule({
   imports: [
     BrowserModule,
+<<<<<<< HEAD
     MatButtonModule,
+=======
+>>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule.forRoot(),

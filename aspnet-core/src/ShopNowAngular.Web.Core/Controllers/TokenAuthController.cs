@@ -14,6 +14,17 @@ using ShopNowAngular.Authorization;
 using ShopNowAngular.Authorization.Users;
 using ShopNowAngular.Models.TokenAuth;
 using ShopNowAngular.MultiTenancy;
+using Abp.Web.Models;
+using Microsoft.AspNetCore.Http;
+using ShopNowAngular.Users;
+using ShopNowAngular.TwoFactorAuthentications;
+using Abp.UI;
+using ShopNowAngular.TwoFactorAuthentications.Dtos;
+using Microsoft.AspNetCore.Identity;
+using ShopNowAngular.Identity;
+using Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+using ShopNowAngular.Emails;
 
 namespace ShopNowAngular.Controllers
 {
@@ -24,17 +35,34 @@ namespace ShopNowAngular.Controllers
         private readonly ITenantCache _tenantCache;
         private readonly AbpLoginResultTypeHelper _abpLoginResultTypeHelper;
         private readonly TokenAuthConfiguration _configuration;
-
+        private readonly UserManager _userManager;
+        private readonly IUserAppService _userAppService;
+        private readonly ITwoFactorAuthenticationAppService _twoFactorAuthenticationAppService;
+        private readonly SignInManager _signInManager;
+        private readonly IRepository<User, long> _userRepository;
+        private readonly IEmailAppService _emailAppService;
         public TokenAuthController(
             LogInManager logInManager,
             ITenantCache tenantCache,
             AbpLoginResultTypeHelper abpLoginResultTypeHelper,
+            UserManager userManager,
+            IUserAppService userAppService,
+            SignInManager signInManager,
+            IEmailAppService emailAppService,
+            ITwoFactorAuthenticationAppService twoFactorAuthenticationAppService,
+            IRepository<User, long> userRepository,
             TokenAuthConfiguration configuration)
         {
             _logInManager = logInManager;
             _tenantCache = tenantCache;
+            _userManager = userManager;
             _abpLoginResultTypeHelper = abpLoginResultTypeHelper;
             _configuration = configuration;
+            _userAppService = userAppService;
+            _signInManager = signInManager;
+            _userRepository = userRepository;
+            _twoFactorAuthenticationAppService = twoFactorAuthenticationAppService;
+            _emailAppService = emailAppService;
         }
 
         [HttpPost]
@@ -116,5 +144,162 @@ namespace ShopNowAngular.Controllers
         {
             return SimpleStringCipher.Instance.Encrypt(accessToken);
         }
+
+
+        #region User 2FA Authentication
+        [HttpPost]
+        [AbpAllowAnonymous]
+        [DontWrapResult]
+
+        public async Task<IActionResult> TwoFactorAuthentication([FromBody] AuthenticateModel model)
+        {
+            
+            var user = await _userAppService.GetUserEntityByNameAndEmail(model.UserNameOrEmailAddress);
+            
+            if ((user != null) && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                var emailResponse = await _twoFactorAuthenticationAppService.SendEmailForLogInAuthentication(user);
+                if (!emailResponse.Item1)
+                {
+                    var failedResponse = new
+                    {
+                        StatusCode = StatusCodes.Status404NotFound,
+                        Message = emailResponse.Item2,
+                        UserId = user.Id
+                    };
+                    return StatusCode(StatusCodes.Status404NotFound, failedResponse);
+                }
+
+                var successResponse = new
+                {
+                    StatusCode = StatusCodes.Status200OK,
+                    Message = "Authentication successful.",
+                    UserId = user.Id,
+                    Email = user.EmailAddress
+
+                };
+                return StatusCode(StatusCodes.Status200OK, successResponse);
+            }
+
+            else
+            {
+                var errorResponse = new
+                {
+                    StatusCode = StatusCodes.Status401Unauthorized,
+                    Message = "Authentication failed. Please check your credentials."
+                };
+
+                return StatusCode(StatusCodes.Status401Unauthorized, errorResponse);
+            }
+        }
+        [HttpPost]
+        public async Task<GetOTPVerificationWithUserDetails> VerifyOtp([FromBody] VerifyOtpModel verifyOtpModel)
+        {
+
+            var response = await _twoFactorAuthenticationAppService.VerifyOtpForAuthentication(verifyOtpModel.OTP, verifyOtpModel.UsernameAndEmail);
+            if (response.IsCodeVerified)
+            {
+                //StoreSessionData(response);
+
+                var accessToken = CreateAccessTokenWithOtp(response.UserDetails.Name, response.UserDetails.Id);
+                response.AccessToken = accessToken.AccessToken;
+                response.EncryptedAccessToken = accessToken.EncryptedAccessToken;
+                response.ExpireInSeconds = accessToken.ExpireInSeconds;
+
+                var user = await _userManager.FindByIdAsync(response.UserDetails.Id.ToString());
+                if (user != null)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await UnitOfWorkManager.Current.SaveChangesAsync();
+                }
+            }
+
+            else
+            {
+                throw new UserFriendlyException(response.ErrorMessage);
+            }
+            return response;
+        }
+        [HttpPost]
+        public AuthenticateResultModel CreateAccessTokenWithOtp(string name, long id)
+        {
+            var claimsIdentity = CreateJwtClaimsForOtpLogIn(name, id);
+            var accessToken = CreateAccessToken(claimsIdentity);
+            return new AuthenticateResultModel
+            {
+                AccessToken = accessToken,
+                EncryptedAccessToken = GetEncryptedAccessToken(accessToken),
+                ExpireInSeconds = 32400,
+                UserId = id
+            };
+        }
+        private static List<Claim> CreateJwtClaimsForOtpLogIn(string name, long Id)
+        {
+            List<Claim> claims = new List<Claim>();
+            claims.AddRange(new[]
+            {
+                new Claim(JwtRegisteredClaimNames.NameId, Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.FamilyName, name.ToString()),
+                new Claim("SecurityStamp", Guid.NewGuid().ToString()),
+                new Claim("role", "admin"),
+                new Claim("tenantId", "1"),
+                new Claim(JwtRegisteredClaimNames.Sub, Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
+            });
+            return claims;
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendOtpForForgetPasswordVerification(SendOtpForForgetPasswordModel sendOtpForForgetPassword)
+        {
+            var user = await _userAppService.GetUserEntityByNameAndEmail(sendOtpForForgetPassword.EmailAddress);
+            if (user == null)
+            {
+                var errorResponse = new
+                {
+                    StatusCode = StatusCodes.Status401Unauthorized,
+                    Message = "No user found with the requested mail."
+                };
+
+                return StatusCode(StatusCodes.Status401Unauthorized, errorResponse);
+            }
+            var response = await _twoFactorAuthenticationAppService.SendEmailForForgetPasswordAuthentication(user);
+            if (response.Item1)
+            {
+                var successResponse = new
+                {
+                    Message = "Mail Sent Successfully",
+                    Email = user.EmailAddress
+                };
+
+                return StatusCode(StatusCodes.Status200OK, successResponse);
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, "Cannot send mail contact your admin");
+        }
+        [HttpPost]
+        public async Task<bool> ResendOtp(ResendOtpDto resendOtpDto)
+        {
+
+            var user = await _userRepository.GetAll()
+                                                    .Where(u => u.EmailAddress == resendOtpDto.EmailAddress)
+                                                    .FirstOrDefaultAsync();
+            string subject = "Attempt to log in your Portal";
+            var otp = GeneratesOtp();
+            List<string> emailAddresses = new List<string> { user.EmailAddress };
+            string body = _emailAppService.CreateAuthenticationEmailHtmlContent(otp);
+            var mailMessage = await _emailAppService.CreateEmailContent(emailAddresses, subject, body);
+            user.EmailCodeVerification = otp;
+            user.EmailCodeSendingTime = DateTime.UtcNow;
+            await _userRepository.UpdateAsync(user);
+            var response = await _emailAppService.SendEmailGeneric(mailMessage);
+            return response.Item1;
+        }
+
+        private string GeneratesOtp()
+        {
+            Random rand = new Random();
+            return rand.Next(100000, 999999).ToString();
+        }
+        #endregion
     }
 }
