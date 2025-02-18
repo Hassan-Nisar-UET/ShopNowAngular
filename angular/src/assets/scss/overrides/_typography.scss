@@ -1,0 +1,59 @@
+@use '@angular/material' as mat;
+
+// Define text color (ensure it's defined somewhere in your theme)
+$textPrimary: #333; // Change this according to your theme
+
+// Define typography configuration
+$theme-typography: mat.define-typography-config(
+  $font-family: "Plus Jakarta Sans",
+  $headline-5: mat.define-typography-level(24px, 30px, 700),
+  $headline-6: mat.define-typography-level(18px, 26px, 600),
+  $subtitle-1: mat.define-typography-level(21px, 26px, 500),
+  $subtitle-2: mat.define-typography-level(14px, 14px, 400),
+  $body-1: mat.define-typography-level(14px, 20px, 400),
+  $body-2: mat.define-typography-level(16px, 22px, 400),
+  $button: mat.define-typography-level(14px, 14px, 400)
+);
+
+// Apply typography styles to Material components
+.mat-headline-5,
+.mat-headline-6,
+.mat-subtitle-2,
+.mat-subtitle-1,
+.mat-body-1,
+.mat-body-2 {
+  margin: 0;
+  color: $textPrimary;
+}
+
+// Apply typography mixins correctly
+.mat-headline-5 {
+  @include mat.typography-hierarchy($theme-typography, headline-5);
+}
+
+.mat-headline-6 {
+  @include mat.typography-hierarchy($theme-typography, headline-6);
+}
+
+.mat-subtitle-2 {
+  @include mat.typography-hierarchy($theme-typography, subtitle-2);
+}
+
+.mat-subtitle-1 {
+  @include mat.typography-hierarchy($theme-typography, subtitle-1);
+}
+
+.mat-body-1 {
+  @include mat.typography-hierarchy($theme-typography, body-1);
+}
+
+.mat-body-2 {
+  @include mat.typography-hierarchy($theme-typography, body-2);
+}
+
+// Apply primary text color to MDC elements
+.mdc-list-item__primary-text,
+.mat-mdc-drawer-container,
+.mat-mdc-drawer {
+  color: $textPrimary;
+}

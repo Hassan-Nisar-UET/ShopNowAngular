@@ -22,9 +22,25 @@ import { SidebarComponent } from './layout/sidebar.component';
 import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
+import { ButtonModule } from 'primeng/button';
+// import { ShopsComponent } from './shops/shops.component';
+import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
+
+import { MenuModule } from 'primeng/menu';
+import { CheckboxModule } from 'primeng/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+
+// Material Modules
+import { MatButtonModule } from '@angular/material/button';
+
+// Forms Module
+
+
 
 @NgModule({
     declarations: [
+   
         AppComponent,
         // layout
         HeaderComponent,
@@ -35,9 +51,12 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
         SidebarComponent,
         SidebarLogoComponent,
         SidebarUserPanelComponent,
-        SidebarMenuComponent
+        SidebarMenuComponent,
+      
     ],
     imports: [
+        
+        ButtonModule,
         AppRoutingModule,
         CommonModule,
         FormsModule,
@@ -50,7 +69,14 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
         TabsModule,
         ServiceProxyModule,
         NgxPaginationModule,
-        SharedModule
+        SharedModule,
+        TableModule,
+        PaginatorModule,
+        MenuModule,
+        CheckboxModule,
+        MatMenuModule,
+        MatButtonModule
+        
     ],
     providers: []
 })
