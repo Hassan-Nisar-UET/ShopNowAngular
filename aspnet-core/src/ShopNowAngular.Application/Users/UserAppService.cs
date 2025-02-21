@@ -234,6 +234,9 @@ namespace ShopNowAngular.Users
 
             return true;
         }
+<<<<<<< HEAD
+
+=======
         [AbpAllowAnonymous]
         public async Task<User> GetUserEntityByNameAndEmail(string usernameAndEmail)
         {
@@ -241,6 +244,7 @@ namespace ShopNowAngular.Users
                                             .Where(u => u.EmailAddress == usernameAndEmail && u.IsActive)
                                             .FirstOrDefaultAsync();
         }
+>>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
         public async Task<bool> ResetPassword(ResetPasswordDto input)
         {
             if (_abpSession.UserId == null)

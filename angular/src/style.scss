@@ -1,0 +1,532 @@
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+// @import "ckeditor5/ckeditor5.css";
+// @import "ckeditor5-premium-features/ckeditor5-premium-features.css";
+html,
+body {
+  height: 100%;
+}
+
+/**Loader**/
+
+.cssload-thecube {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 73px;
+  height: 73px;
+  z-index: 9000;
+  margin: 0 auto;
+  transform: rotateZ(45deg);
+  -o-transform: rotateZ(45deg);
+  -ms-transform: rotateZ(45deg);
+  -webkit-transform: rotateZ(45deg);
+  -moz-transform: rotateZ(45deg);
+}
+
+.cssload-thecube .cssload-cube {
+  position: relative;
+  transform: rotateZ(45deg);
+  -o-transform: rotateZ(45deg);
+  -ms-transform: rotateZ(45deg);
+  -webkit-transform: rotateZ(45deg);
+  -moz-transform: rotateZ(45deg);
+}
+
+.cssload-thecube .cssload-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+}
+
+.cssload-thecube .cssload-cube:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(200, 0, 0);
+  animation: cssload-fold-thecube 2.76s infinite linear both;
+  -o-animation: cssload-fold-thecube 2.76s infinite linear both;
+  -ms-animation: cssload-fold-thecube 2.76s infinite linear both;
+  -webkit-animation: cssload-fold-thecube 2.76s infinite linear both;
+  -moz-animation: cssload-fold-thecube 2.76s infinite linear both;
+  transform-origin: 100% 100%;
+  -o-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  -webkit-transform-origin: 100% 100%;
+  -moz-transform-origin: 100% 100%;
+}
+
+.custom-snackbar-success {
+  background-color: #e6fffa; /* Light background color for success */
+  color: #2e7d32; /* Text color for success */
+  border: 1px solid #4caf50; /* Green border similar to PrimeNG toast */
+  border-radius: 4px; /* Rounded corners */
+  padding: 16px; /* Padding for better spacing */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  font-size: 14px; /* Font size */
+  display: flex; /* Flexbox for alignment */
+  justify-content: space-between; /* Space between message and button */
+  align-items: center; /* Center items vertically */
+}
+
+.cssload-thecube .cssload-c2 {
+  transform: scale(1.1) rotateZ(90deg);
+  -o-transform: scale(1.1) rotateZ(90deg);
+  -ms-transform: scale(1.1) rotateZ(90deg);
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+  -moz-transform: scale(1.1) rotateZ(90deg);
+}
+
+.cssload-thecube .cssload-c3 {
+  transform: scale(1.1) rotateZ(180deg);
+  -o-transform: scale(1.1) rotateZ(180deg);
+  -ms-transform: scale(1.1) rotateZ(180deg);
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+  -moz-transform: scale(1.1) rotateZ(180deg);
+}
+
+.cssload-thecube .cssload-c4 {
+  transform: scale(1.1) rotateZ(270deg);
+  -o-transform: scale(1.1) rotateZ(270deg);
+  -ms-transform: scale(1.1) rotateZ(270deg);
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+  -moz-transform: scale(1.1) rotateZ(270deg);
+}
+
+.cssload-thecube .cssload-c2:before {
+  animation-delay: 0.35s;
+  -o-animation-delay: 0.35s;
+  -ms-animation-delay: 0.35s;
+  -webkit-animation-delay: 0.35s;
+  -moz-animation-delay: 0.35s;
+}
+
+.cssload-thecube .cssload-c3:before {
+  animation-delay: 0.69s;
+  -o-animation-delay: 0.69s;
+  -ms-animation-delay: 0.69s;
+  -webkit-animation-delay: 0.69s;
+  -moz-animation-delay: 0.69s;
+}
+
+.cssload-thecube .cssload-c4:before {
+  animation-delay: 1.04s;
+  -o-animation-delay: 1.04s;
+  -ms-animation-delay: 1.04s;
+  -webkit-animation-delay: 1.04s;
+  -moz-animation-delay: 1.04s;
+}
+
+@keyframes cssload-fold-thecube {
+  0%,
+  10% {
+      transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
+  }
+  25%,
+  75% {
+      transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
+  }
+  90%,
+  100% {
+      transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+  }
+}
+
+@-o-keyframes cssload-fold-thecube {
+  0%,
+  10% {
+      -o-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
+  }
+  25%,
+  75% {
+      -o-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
+  }
+  90%,
+  100% {
+      -o-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+  }
+}
+
+@-ms-keyframes cssload-fold-thecube {
+  0%,
+  10% {
+      -ms-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
+  }
+  25%,
+  75% {
+      -ms-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
+  }
+  90%,
+  100% {
+      -ms-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+  }
+}
+
+@-webkit-keyframes cssload-fold-thecube {
+  0%,
+  10% {
+      -webkit-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
+  }
+  25%,
+  75% {
+      -webkit-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
+  }
+  90%,
+  100% {
+      -webkit-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+  }
+}
+
+@-moz-keyframes cssload-fold-thecube {
+  0%,
+  10% {
+      -moz-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
+  }
+  25%,
+  75% {
+      -moz-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
+  }
+  90%,
+  100% {
+      -moz-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+  }
+}
+
+
+/**end loader**/
+
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.text-disable {
+  color: gray;
+}
+.p-toast .p-toast-message {
+  margin: 0 0 1rem 0;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+.p-toast .p-toast-message .p-toast-message-content {
+  padding: 1rem;
+  border-width: 0 0 0 6px;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+  font-size: 2rem;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
+  margin: 0 0 0 1rem;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+  font-size: 16px;
+  font-weight: 700;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+  font-size: 15px;
+  margin: 0.5rem 0 0 0;
+}
+.drange-ctrl {
+  margin-top: -6px;
+  height: 3rem;
+  font-size: 14px;
+  color: #757575;
+  border: 1px solid #fff;
+  border: 1px solid #e5eaef;
+  border-radius: 5px;
+  width: 100%;
+  padding-left: 15px;
+}
+.md-drppicker .ranges ul li button.active {
+  background-color: #cc0000 !important;
+  color: #fff;
+}
+.md-drppicker.double {
+  width: max-content !important;  /* Override width */
+}
+.md-drppicker td.active, .md-drppicker td.active:hover {
+  background-color: #cc0000 !important;
+}
+.md-drppicker .btn {
+  background-color: #cc0000 !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-success {
+  background: #e6fffa;
+  border: solid #13deb9;
+  border-width: 0 0 0 6px;
+  color: #13deb9;
+}
+.p-toast .p-toast-message.p-toast-message-info {
+  background: #e8f7ff;
+  border: solid #001871;
+  border-width: 0 0 0 6px;
+  color: #001871;
+}
+.p-toast .p-toast-message.p-toast-message-warn {
+  background: #fef5e5;
+  border: solid #ffae1f;
+  border-width: 0 0 0 6px;
+  color: #ffae1f;
+}
+.p-toast .p-toast-message.p-toast-message-error {
+  background: #fdede8;
+  border: solid #cc0000;
+  border-width: 0 0 0 6px;
+  color: #cc0000;
+}
+.p-toast .p-toast-message.p-toast-message-secondary {
+  background: #64748b;
+  border: solid #64748b;
+  border-width: 0 0 0 6px;
+  color: #ffffff;
+}
+.p-toast .p-toast-message.p-toast-message-contrast {
+  background: #1f2937;
+  border: solid #1f2937;
+  border-width: 0 0 0 6px;
+  color: #ffffff;
+}
+.p-toast-top-right {
+  top: 20px;
+  right: 20px;
+}
+.p-toast .p-toast-message .p-toast-icon-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: transparent;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.p-toast-icon-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  flex: none;
+}
+.p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
+  border: transparent;
+  color: #13deb9;
+}
+.p-toast-message.p-toast-message-info .p-toast-icon-close {
+  border: transparent;
+  color: #001871;
+}
+.p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close {
+  border: transparent;
+  color: #ffae1f;
+}
+.p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
+  border: transparent;
+  color: #cc0000;
+}
+.p-toast .p-toast-message.p-toast-message-secondary .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-secondary .p-toast-icon-close {
+  border: transparent;
+  color: #ffffff;
+}
+.p-toast .p-toast-message.p-toast-message-contrast .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-contrast .p-toast-icon-close {
+  border: transparent;
+  color: #ffffff;
+}
+.mat-sort-header-container {
+  .mat-sort-header-arrow {
+    opacity: 1 !important; /* Force the arrow to always show */
+    visibility: visible !important;
+  }
+  
+  
+  
+}
+.mat-mdc-form-field-flex {
+  height: 3rem;
+}
+.mdc-text-field--outlined .mat-mdc-form-field-infix,
+.mdc-text-field--no-label .mat-mdc-form-field-infix {
+  padding-top: 10px;
+  padding-bottom: 0px;
+}
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: 24px !important;
+}
+.mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-full.mat-pseudo-checkbox-indeterminate {
+    background-color: #cc0000 !important;
+}
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: #cc0000 !important;
+}
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after, .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after {
+  color: #cc0000 !important;
+}
+.mat-calendar-body-selected {
+  background-color: #cc0000 !important;
+}
+.custom-mat-form-field {
+  width: 20%;
+  transition: width 0.3s ease;
+  
+  .mat-mdc-form-field-flex {
+    height: 2rem;
+  }
+  .mdc-text-field--outlined .mat-mdc-form-field-infix,
+  .mdc-text-field--no-label .mat-mdc-form-field-infix {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: 24px !important;
+  }
+  .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+    margin-top: 4px;
+    text-align: center;
+    margin-left: -6px;
+  }
+
+  &.focused {
+    width: 30%;
+  }
+}
+
+
+// prime ng styles 
+.p-button {
+  padding: 0.2rem 1.3rem;
+  font-size: 14px;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: #cc00000d;
+  border-color: #cc00000d;
+  color: #cc0000;
+}
+.p-dropdown:not(.p-disabled):hover {
+  border-color: #cc0000;
+}
+.p-dropdown:not(.p-disabled).p-focus {
+  box-shadow: 0 0 0 0.2rem #febfbf;
+  border-color: #cc0000;
+}
+.p-dropdown.p-variant-filled {
+  background-color: #cc00000d;
+}
+.p-dropdown.p-variant-filled:enabled:hover {
+  background-color: #cc00000d;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: #cc0000;
+  background: #cc00000d;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
+  background: #cc00000d;
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #cc0000;
+  background: #cc0000;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  border-color: #cc0000;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+  border-color: #cc0000;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  border-color: #cc0000;
+  background: #cc0000;
+}
+.p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  background: #cc0000;
+}
+
+.p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
+  background: #cc0000;
+}
+.p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  background: #cc0000;
+}
+
+.p-datatable .p-sortable-column.p-highlight {
+  background: #cc00000d;
+  color: #cc0000;
+}
+.p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+  color: #cc0000;
+}
+.p-datatable .p-sortable-column.p-highlight:hover {
+  background: #cc00000d;
+  color: #cc0000;
+}
+.p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon {
+  color: #cc0000;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  font-weight: 550;
+  font-size: 14px;
+}
+.p-datatable .p-sortable-column .p-sortable-column-icon {
+  color: #aaacaf;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+  font-size: 14px;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  border: 1px solid #cecdcd;
+  border-width: 1px 0 1px 0;
+  background: #e4e3e3;
+}
+// .p-dialog-mask {
+//   left: 7.5%;
+// }
+.p-fieldset .p-fieldset-legend {
+  padding: 1rem;
+  border: none;
+  background: transparent;
+}
+.p-fieldset .p-fieldset-content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.p-accordion .p-accordion-header .p-accordion-header-link {
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 16px;
+}
+.p-fileupload-choose {
+  background: #cc0000;
+  border: 1px solid #cc0000;
+}
+.p-fileupload .p-button:last-child{
+  background: #14cc8f;
+  border: 1px solid #14cc8f;
+}

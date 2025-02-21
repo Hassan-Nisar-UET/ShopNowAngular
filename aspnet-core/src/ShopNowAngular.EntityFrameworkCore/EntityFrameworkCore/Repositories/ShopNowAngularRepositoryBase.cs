@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Repositories;
+using Abp.EntityFrameworkCore;
+using Abp.EntityFrameworkCore.Repositories;
+=======
 ﻿using Abp.Data;
 using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
@@ -9,6 +15,7 @@ using System.Data.Common;
 using System.Data;
 using System.Threading.Tasks;
 using ShopNowAngular.EntityFrameworkCore.Extensions;
+>>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
 
 namespace ShopNowAngular.EntityFrameworkCore.Repositories
 {
@@ -26,6 +33,8 @@ namespace ShopNowAngular.EntityFrameworkCore.Repositories
         }
 
         // Add your common methods for all repositories
+<<<<<<< HEAD
+=======
         protected readonly IActiveTransactionProvider _transactionProvider;
         protected ShopNowAngularRepositoryBase(IDbContextProvider<ShopNowAngularDbContext> dbContextProvider, IActiveTransactionProvider transactionProvider)
             : base(dbContextProvider)
@@ -74,6 +83,7 @@ namespace ShopNowAngular.EntityFrameworkCore.Repositories
                     {"MultiTenancySide", MultiTenancySide }
                 });
         }
+>>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
     }
 
     /// <summary>
