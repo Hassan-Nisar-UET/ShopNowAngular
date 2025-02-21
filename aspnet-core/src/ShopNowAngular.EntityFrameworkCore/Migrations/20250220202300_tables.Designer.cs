@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopNowAngular.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using ShopNowAngular.EntityFrameworkCore;
 namespace ShopNowAngular.Migrations
 {
     [DbContext(typeof(ShopNowAngularDbContext))]
-    partial class ShopNowAngularDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250220202300_tables")]
+    partial class tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1604,9 +1607,6 @@ namespace ShopNowAngular.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
@@ -1625,14 +1625,12 @@ namespace ShopNowAngular.Migrations
                     b.Property<Guid>("StoreId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts", "Cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("ShopNowAngular.Carts.CartItem", b =>
@@ -1675,7 +1673,7 @@ namespace ShopNowAngular.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartItems", "Cart");
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("ShopNowAngular.Categories.Category", b =>
@@ -2026,9 +2024,6 @@ namespace ShopNowAngular.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
@@ -2053,12 +2048,10 @@ namespace ShopNowAngular.Migrations
                     b.Property<double>("TotalAmount")
                         .HasColumnType("float");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Orders", "Order");
                 });
@@ -2121,9 +2114,6 @@ namespace ShopNowAngular.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
@@ -2145,12 +2135,10 @@ namespace ShopNowAngular.Migrations
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Payments", "Payment");
                 });
@@ -2373,15 +2361,6 @@ namespace ShopNowAngular.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("ShopNowAngular.Carts.Cart", b =>
-                {
-                    b.HasOne("ShopNowAngular.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ShopNowAngular.Carts.CartItem", b =>
                 {
                     b.HasOne("ShopNowAngular.Carts.Cart", null)
@@ -2482,15 +2461,6 @@ namespace ShopNowAngular.Migrations
                     b.Navigation("SubCategory");
                 });
 
-            modelBuilder.Entity("ShopNowAngular.orders.Order", b =>
-                {
-                    b.HasOne("ShopNowAngular.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ShopNowAngular.orders.OrderItem", b =>
                 {
                     b.HasOne("ShopNowAngular.orders.Order", null)
@@ -2498,15 +2468,6 @@ namespace ShopNowAngular.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ShopNowAngular.payments.Payment", b =>
-                {
-                    b.HasOne("ShopNowAngular.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>

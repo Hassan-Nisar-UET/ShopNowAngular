@@ -46,6 +46,7 @@ namespace ShopNowAngular.Web.Host.Startup
 
             IdentityRegistrar.Register(services);
             AuthConfigurer.Configure(services, _appConfiguration);
+            EmailConfigurationResolver.Configure(_appConfiguration);
 
             services.AddSignalR();
 

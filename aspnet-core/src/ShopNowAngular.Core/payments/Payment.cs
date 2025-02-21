@@ -16,7 +16,8 @@ namespace ShopNowAngular.payments
     public class Payment : FullAuditedEntity<Guid>
     {
         public Guid OrderId { get; set; }
-        public long UserId { get; set; }
+        public long CustomerId { get; set; }
+        public User User { get; set; }
         public double Amount { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
 

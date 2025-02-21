@@ -14,8 +14,8 @@ namespace ShopNowAngular.orders
     [Table("Orders", Schema = "Order")]
     public class Order : FullAuditedEntity<Guid>
     {
-        public long UserId { get; set; }
-
+        public long CustomerId { get; set; }
+        public User User { get; set; }
         public Guid StoreId { get; set; }
 
         public double TotalAmount { get; set; }

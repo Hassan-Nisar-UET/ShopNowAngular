@@ -4,6 +4,7 @@ using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using Abp.Runtime.Validation;
 using ShopNowAngular.Authorization.Users;
+using ShopNowAngular.Enums;
 
 namespace ShopNowAngular.Users.Dto
 {
@@ -28,7 +29,7 @@ namespace ShopNowAngular.Users.Dto
         public string EmailAddress { get; set; }
 
         public bool IsActive { get; set; }
-
+        public UserType UserType { get; set; }
         public string[] RoleNames { get; set; }
 
         [Required]

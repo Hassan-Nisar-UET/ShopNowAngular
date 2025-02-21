@@ -11,7 +11,7 @@ namespace ShopNowAngular.Stores
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public Guid OwnerId { get; set; } // Links to ABP Users table
+        public long OwnerId { get; set; } // Links to ABP Users table
 
         public ICollection<Product> Products { get; set; }
 

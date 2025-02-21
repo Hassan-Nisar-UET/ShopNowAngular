@@ -22,6 +22,7 @@ using ShopNowAngular.Roles.Dto;
 using ShopNowAngular.Users.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ShopNowAngular.Enums;
 
 namespace ShopNowAngular.Users
 {
@@ -66,16 +67,38 @@ namespace ShopNowAngular.Users
 
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
 
-            if (input.RoleNames != null)
+            if (input.RoleNames.Length == 0)
             {
-                CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));
+                var roleName = await SetStaticRolesForUserType(input.UserType);
+                input.RoleNames = [roleName];
             }
-
+            CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));
             CurrentUnitOfWork.SaveChanges();
 
             return MapToEntityDto(user);
         }
-
+        public async Task<string> SetStaticRolesForUserType(UserType input)
+        {
+            switch (input)
+            {
+                case UserType.Admin:
+                    return await _roleRepository.GetAll()
+                                                       .Where(r => r.Name.Equals(StaticRoleNames.Tenants.Admin))
+                                                       .Select(r => r.Name)
+                                                       .FirstOrDefaultAsync();
+                case UserType.StoreOwner:
+                    return await _roleRepository.GetAll()
+                                                       .Where(r => r.Name.Equals(StaticRoleNames.Tenants.StoreOwner))
+                                                       .Select(r => r.Name)
+                                                       .FirstOrDefaultAsync();
+                case UserType.Customer:
+                    return await _roleRepository.GetAll()
+                                                       .Where(r => r.Name.Equals(StaticRoleNames.Tenants.Customer))
+                                                       .Select(r => r.Name)
+                                                       .FirstOrDefaultAsync();
+            }
+            return string.Empty;
+        }
         public override async Task<UserDto> UpdateAsync(UserDto input)
         {
             CheckUpdatePermission();

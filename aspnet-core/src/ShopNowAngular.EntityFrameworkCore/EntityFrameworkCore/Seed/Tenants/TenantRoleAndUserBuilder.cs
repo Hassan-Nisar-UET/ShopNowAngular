@@ -9,6 +9,8 @@ using Abp.MultiTenancy;
 using ShopNowAngular.Authorization;
 using ShopNowAngular.Authorization.Roles;
 using ShopNowAngular.Authorization.Users;
+using System.Reflection;
+using System;
 
 namespace ShopNowAngular.EntityFrameworkCore.Seed.Tenants
 {
@@ -26,6 +28,7 @@ namespace ShopNowAngular.EntityFrameworkCore.Seed.Tenants
         public void Create()
         {
             CreateRolesAndUsers();
+            CreateByDefaultRole();
         }
 
         private void CreateRolesAndUsers()
@@ -83,6 +86,23 @@ namespace ShopNowAngular.EntityFrameworkCore.Seed.Tenants
                 // Assign Admin role to admin user
                 _context.UserRoles.Add(new UserRole(_tenantId, adminUser.Id, adminRole.Id));
                 _context.SaveChanges();
+            }
+        }
+        private void CreateByDefaultRole()
+        {
+            Type tenantsType = typeof(StaticRoleNames.Tenants);
+            foreach (FieldInfo field in tenantsType.GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                if (field.FieldType == typeof(string))
+                {
+                    string roleName = (string)field.GetValue(null);
+                    var role = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.Name == roleName && r.IsDeleted == false && r.TenantId == _tenantId);
+                    if (role == null)
+                    {
+                        role = _context.Roles.Add(new Role(_tenantId, roleName, roleName) { IsStatic = true }).Entity;
+                        _context.SaveChanges();
+                    }
+                }
             }
         }
     }
