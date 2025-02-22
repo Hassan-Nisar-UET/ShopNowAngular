@@ -1,120 +1,91 @@
-<p>shops works!</p>
 
-<!-- Basic Button -->
-<button mat-button>Basic Button</button>
-<button mat-stroked-button>Stroked Button</button>
-<p-button label="Click Me" icon="pi pi-check"></p-button>
 
-<div class="bg-light-primary rounded p-y-24 p-x-24 m-b-24 overflow-hidden ">
+
+<div class="bg-light-error rounded p-y-24 p-x-24 m-b-24 overflow-hidden ">
     <div class="d-flex p-y-2">
         <div class="">
             <h4 class="page-title m-0 f-s-20 f-w-600 ">
-                Add Client
+                Shops management
             </h4>
         </div>
+    </div>
+    <div >
+   <button mat-flat-button color="accent" (click)="showDialog()">
+     Add Shops 
+   </button>
     </div>
 </div>
 
 <mat-card class="cardWithShadow">
     <mat-card-content class="p-24">
-<div class="table-responsive">
-    <p-table #dt [value]="dataSource.data" [sortMode]="'multiple'">
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 3%">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th pSortableColumn="id" style="width: 10%">Employee ID <p-sortIcon field="id"></p-sortIcon></th>
-                <th pSortableColumn="SurName" style="width: 15%">Surname <p-sortIcon field="SurName"></p-sortIcon></th>
-                <th pSortableColumn="FirstName" style="width: 20%">Firstname <p-sortIcon field="FirstName"></p-sortIcon></th>
-                <th pSortableColumn="Email" style="width: 20%">Email Address <p-sortIcon field="Email"></p-sortIcon></th>
-                <th pSortableColumn="Company" style="width: 15%">Company <p-sortIcon field="Company"></p-sortIcon></th>
-                <th pSortableColumn="Verfied" style="width: 10%">Verified <p-sortIcon field="Verfied"></p-sortIcon></th>
-                <th style="width: 7%">Action</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-element>
-            <tr>
-                <td>
-                    <p-tableCheckbox [value]="element"></p-tableCheckbox>
-                </td>
-                <td>{{ element.id }}</td>
-                <td>{{ element.SurName }}</td>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" [src]="element.imagePath" width="40" />
-                        <div class="m-l-16">
-                            <p class="f-w-600 mat-subtitle-1 f-s-16 m-t-0">{{ element.FirstName }}</p>
-                            <small class="mat-body-1 f-s-14">{{ element.Position }}</small>
-                        </div>
-                    </div>
-                </td>
-                <td><a [href]="'mailto:' + element.Email">{{ element.Email }}</a></td>
-                <td>{{ element.Company }}</td>
-                <td>
-                    <div class="m-l-16">
-                        @if (element.Verfied == true) {
-                        <i class="pi pi-check-circle text-success icon-18 d-flex"></i>
-                        } @else {
-                        <i class="pi pi-times-circle text-error icon-18 d-flex"></i>
-                        }
-                    </div>
-                </td>
-                <td>
-                    <div class="m-l-16">
-                        <a [matMenuTriggerFor]="menu" class="m-r-10 cursor-pointer">
-                        
-                        </a>
-                    </div>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="editClient(element.id)">
-                            <div class="d-flex align-items-center">
-                           
-                                <span class="m-l-8">Edit</span>
-                            </div>
-                        </button>
-                        <button mat-menu-item (click)="history(element.id)">
-                            <div class="d-flex align-items-center">
-                        
-                                <span class="m-l-8">History</span>
-                            </div>
-                        </button>
-                        <button mat-menu-item (click)="dataUsage(element.id)">
-                            <div class="d-flex align-items-center">
-                              
-                                <span class="m-l-8">Data Usage [GDPR]</span>
-                            </div>
-                        </button>
-                        <button mat-menu-item>
-                            <div class="d-flex align-items-center">
-                            
-                                <span class="m-l-8">Send Password</span>
-                            </div>
-                        </button>
-                        <button mat-menu-item>
-                            <div class="d-flex align-items-center">
-                               
-                                <span class="m-l-8">Send Username</span>
-                            </div>
-                        </button>
-                        <button mat-menu-item>
-                            <div class="d-flex align-items-center">
-             
-                                <span class="m-l-8">Delete</span>
-                            </div>
-                        </button>
-                    </mat-menu>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <!-- PrimeNG Paginator -->
-    <p-paginator [rows]="pageSize" [totalRecords]="totalRecords" [rowsPerPageOptions]="pageSizes"
-        (onPageChange)="onPageChange($event)">
-    </p-paginator>
-</div>
-
+        <div class="table-responsive">
+            <p-table #dt [value]="dataSource" [sortMode]="'multiple'">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3%">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="name" style="width: 15%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th style="width: 20%">Description</th>
+                        <th pSortableColumn="address" style="width: 20%">Address <p-sortIcon field="address"></p-sortIcon></th>
+                        <th pSortableColumn="country" style="width: 15%">Country <p-sortIcon field="country"></p-sortIcon></th>
+                        <th pSortableColumn="type" style="width: 10%">Type <p-sortIcon field="type"></p-sortIcon></th>
+                        <th pSortableColumn="phone" style="width: 10%">Phone <p-sortIcon field="phone"></p-sortIcon></th>
+                        <th pSortableColumn="gmail" style="width: 15%">Gmail <p-sortIcon field="gmail"></p-sortIcon></th>
+                        <th style="width: 7%">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                        <td>{{ element.name }}</td>
+                        <td>{{ element.description }}</td>
+                        <td>{{ element.address }}</td>
+                        <td>{{ element.country }}</td>
+                        <td>{{ element.type }}</td>
+                        <td>{{ element.phone }}</td>
+                        <td><a [href]="'mailto:' + element.gmail">{{ element.gmail }}</a></td>
+                        <td>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="editRecord(element.id)">
+                                    <span>Edit</span>
+                                </button>
+                                <button mat-menu-item (click)="deleteRecord(element.id)">
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
+                            <a [matMenuTriggerFor]="menu" class="cursor-pointer">
+                                <i class="pi pi-ellipsis-v"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        
+            <p-paginator [rows]="pageSize" [totalRecords]="totalRecords" [rowsPerPageOptions]="pageSizes"
+                (onPageChange)="onPageChange($event)">
+            </p-paginator>
+        </div>
+        
 
 </mat-card-content>
 </mat-card>
+
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-8">Update your information.</span>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Username</label>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex items-center gap-4 mb-8">
+        <label for="email" class="font-semibold w-24">Email</label>
+        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex justify-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button label="Save" (click)="visible = false" />
+    </div>
+</p-dialog>

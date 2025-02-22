@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 // import { ShopsComponent } from './shops/shops.component';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { MenuModule } from 'primeng/menu';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -22,6 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
     declarations: [ShopsComponent],
     imports: [SharedModule, 
         ShopsRoutingModule,
+        DialogModule,
+        InputTextModule,
         ButtonModule,
         TableModule,
         PaginatorModule,

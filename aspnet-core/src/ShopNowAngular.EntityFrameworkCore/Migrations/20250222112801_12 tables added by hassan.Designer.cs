@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopNowAngular.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using ShopNowAngular.EntityFrameworkCore;
 namespace ShopNowAngular.Migrations
 {
     [DbContext(typeof(ShopNowAngularDbContext))]
-    partial class ShopNowAngularDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250222112801_12 tables added by hassan")]
+    partial class _12tablesaddedbyhassan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

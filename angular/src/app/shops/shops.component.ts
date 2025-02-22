@@ -6,44 +6,17 @@ import { Component } from '@angular/core';
   styleUrl: './shops.component.css'
 })
 export class ShopsComponent {
-  dataSource = {
-    data: [
-      {
-        id: 1,
-        SurName: 'Smith',
-        FirstName: 'John',
-        Email: 'john.smith@example.com',
-        Company: 'ABC Corp',
-        Verfied: true,
-        imagePath: 'https://via.placeholder.com/40',
-        Position: 'Software Engineer'
-      },
-      {
-        id: 2,
-        SurName: 'Doe',
-        FirstName: 'Jane',
-        Email: 'jane.doe@example.com',
-        Company: 'XYZ Ltd',
-        Verfied: false,
-        imagePath: 'https://via.placeholder.com/40',
-        Position: 'Product Manager'
-      },
-      {
-        id: 3,
-        SurName: 'Brown',
-        FirstName: 'Michael',
-        Email: 'michael.brown@example.com',
-        Company: 'Tech Innovations',
-        Verfied: true,
-        imagePath: 'https://via.placeholder.com/40',
-        Position: 'UX Designer'
-      }
-    ]
-  };
+  dataSource = [
+    { id: 1, name: "John Doe", description: "Software Engineer", address: "123 Main St, NY", country: "USA", type: "Employee", phone: "+1 234 567 890", gmail: "johndoe@gmail.com" },
+    { id: 2, name: "Jane Smith", description: "Graphic Designer", address: "456 Elm St, LA", country: "USA", type: "Freelancer", phone: "+1 987 654 321", gmail: "janesmith@gmail.com" },
+    { id: 3, name: "Ali Khan", description: "Business Analyst", address: "789 Oak St, TX", country: "Pakistan", type: "Consultant", phone: "+92 300 1234567", gmail: "alikhan@gmail.com" },
+    { id: 4, name: "Emily Brown", description: "Marketing Manager", address: "101 Pine St, CA", country: "Canada", type: "Manager", phone: "+1 456 789 012", gmail: "emilybrown@gmail.com" }
+  ];
 
+  visible: boolean = false;
   // Pagination properties
   pageSize = 5;
-  totalRecords = this.dataSource.data.length;
+  totalRecords = this.dataSource.length;
   pageSizes = [5, 10, 20];
 faPencilAlt: any;
 
@@ -51,19 +24,26 @@ faPencilAlt: any;
     console.log('Page changed', event);
   }
 
-  editClient(id: number) {
-    console.log('Edit Client', id);
-  }
-
+  
   history(id: number) {
     console.log('View History', id);
   }
 
   dataUsage(id: number) {
     console.log('Data Usage [GDPR]', id);
+ 
+  }
+  editRecord(id: number) {
+    console.log("Edit record:", id);
   }
 
-  deleteClient(id: number) {
-    console.log('Delete Client', id);
+  deleteRecord(id: number) {
+    this.dataSource = this.dataSource.filter(item => item.id !== id);
+  }
+
+  
+
+  showDialog() {
+      this.visible = true;
   }
 }

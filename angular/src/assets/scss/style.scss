@@ -49,10 +49,10 @@
 //   @include mat.all-component-colors($accountanttheme);
 // }
 
-.legal_theme {
-  @import "themecolors/legal_theme";
-  @include mat.all-component-colors($legaltheme);
-}
+// .legal_theme {
+//   @import "themecolors/legal_theme";
+//   @include mat.all-component-colors($legaltheme);
+// }
 
 //container layout
 @import "overrides/materialoverrides";
