@@ -3,8 +3,8 @@ using Abp.Zero.EntityFrameworkCore;
 using ShopNowAngular.Authorization.Roles;
 using ShopNowAngular.Authorization.Users;
 using ShopNowAngular.MultiTenancy;
-<<<<<<< HEAD
-=======
+
+
 using ShopNowAngular.Categories;
 using ShopNowAngular.Products;
 using ShopNowAngular.Stores;
@@ -14,16 +14,16 @@ using ShopNowAngular.Carts;
 using ShopNowAngular.orders;
 using ShopNowAngular.payments;
 using ShopNowAngular.StoreRequests;
->>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
+
 
 namespace ShopNowAngular.EntityFrameworkCore
 {
     public class ShopNowAngularDbContext : AbpZeroDbContext<Tenant, Role, User, ShopNowAngularDbContext>
     {
         /* Define a DbSet for each entity of the application */
-<<<<<<< HEAD
+
         
-=======
+
 
 
         // Product & Category Tables
@@ -46,7 +46,7 @@ namespace ShopNowAngular.EntityFrameworkCore
 
         // Payment Table
         public DbSet<Payment> Payments { get; set; }
->>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
+
         public ShopNowAngularDbContext(DbContextOptions<ShopNowAngularDbContext> options)
             : base(options)
         {

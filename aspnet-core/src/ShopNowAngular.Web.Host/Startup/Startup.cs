@@ -17,10 +17,9 @@ using Abp.AspNetCore.SignalR.Hubs;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.IO;
-<<<<<<< HEAD
-=======
+
+
 using ShopNowAngular.Configuration.EmailConfigurations;
->>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
 
 namespace ShopNowAngular.Web.Host.Startup
 {
@@ -73,10 +72,10 @@ namespace ShopNowAngular.Web.Host.Startup
 
             // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
             ConfigureSwagger(services);
-<<<<<<< HEAD
-=======
+
+
             
->>>>>>> 9079531492e70da8ce373f28213f9d65c4ec72aa
+
 
             // Configure Abp and Dependency Injection
             services.AddAbpWithoutCreatingServiceProvider<ShopNowAngularWebHostModule>(
