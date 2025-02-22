@@ -15,6 +15,8 @@ using System.Data.Common;
 using System.Data;
 using System.Threading.Tasks;
 using ShopNowAngular.EntityFrameworkCore.Extensions;
+using Abp.Application.Services.Dto;
+using System.Collections.Generic;
 
 
 namespace ShopNowAngular.EntityFrameworkCore.Repositories
@@ -41,6 +43,34 @@ namespace ShopNowAngular.EntityFrameworkCore.Repositories
         {
             _transactionProvider = transactionProvider;
         }
+        protected async Task<List<TOutput>> ExecuteSearchStoreProcedureWithOutPagination<TInput, TOutput>(TInput input, string spName) where TInput : class where TOutput : class, new()
+        {
+            List<TOutput> outputDtos = new List<TOutput>();
+            using (var command = CreateCommand(spName, CommandType.StoredProcedure, _transactionProvider, input.GetParameters().ToArray()))
+            {
+                using (DbDataReader dataReader = await command.ExecuteReaderAsync())
+                {
+                    outputDtos = dataReader.GetObjects<TOutput>();
+                }
+            }
+            return outputDtos;
+        }
+        protected async Task<TOutput> ExecuteSearchStoreProcedureWithoutPagedResultDto<TInput, TOutput>(TInput input, string spName) where TInput : class where TOutput : class, new()
+        {
+
+            TOutput outputDtos = new TOutput();
+            using (var command = CreateCommand(spName, CommandType.StoredProcedure, _transactionProvider, input.GetParameters().ToArray()))
+            {
+                using (DbDataReader dataReader = await command.ExecuteReaderAsync())
+                {
+                    if (await dataReader.ReadAsync())
+                        outputDtos = dataReader.GetObject<TOutput>();
+                }
+            }
+            return outputDtos;
+
+        }
+
         protected async Task<TOutput> ExecuteSearchStoreProcedureWithReturnDto<TInput, TOutput>(TInput input, string spName) where TInput : class where TOutput : class, new()
         {
             TOutput outputDtos = new TOutput();
@@ -54,6 +84,39 @@ namespace ShopNowAngular.EntityFrameworkCore.Repositories
             }
             return outputDtos;
         }
+        protected async Task<PagedResultDto<TOutput>> ExecuteSearchStoreProcedure<TInput, TOutput>(TInput input, string spName) where TInput : class where TOutput : class, new()
+        {
+
+            List<TOutput> outputDtos = new List<TOutput>();
+            int count = 0;
+            using (var command = CreateCommand(spName, CommandType.StoredProcedure, _transactionProvider, input.GetParameters().ToArray()))
+            {
+                using (DbDataReader dataReader = await command.ExecuteReaderAsync())
+                {
+                    outputDtos = dataReader.GetObjects<TOutput>();
+                    if (dataReader.NextResult())
+                    {
+                        count = dataReader.GetObject<int>();
+                    }
+                }
+            }
+            return new PagedResultDto<TOutput>(count, outputDtos);
+
+        }
+        protected async Task<TOutput> ExecuteStoreProcedureWithBoolReturn<TInput, TOutput>(TInput input, string spName) where TInput : class, new()
+        {
+            TOutput outputDtos = default(TOutput);
+            using (var command = CreateCommand(spName, CommandType.StoredProcedure, _transactionProvider, input.GetParameters().ToArray()))
+            {
+                using (DbDataReader dataReader = await command.ExecuteReaderAsync())
+                {
+                    if (await dataReader.ReadAsync())
+                        outputDtos = dataReader.GetPrimitiveValue<TOutput>();
+                }
+            }
+            return outputDtos;
+        }
+        // Add your common methods for all repositories
         protected DbCommand CreateCommand(string commandText, CommandType commandType, IActiveTransactionProvider activeTransactionProvider,
             params SqlParameter[] parameters)
         {

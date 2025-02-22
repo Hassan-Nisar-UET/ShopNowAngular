@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopNowAngular.Repositories.Categories
+namespace ShopNowAngular.Repositories.StoreManagement.StoreRequests
 {
-    public interface ICategoryRepository
+    public interface IStoreRequestRepository
     {
     }
 }

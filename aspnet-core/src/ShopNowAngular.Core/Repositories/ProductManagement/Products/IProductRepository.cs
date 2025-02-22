@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopNowAngular.Repositories.Categories.Dto
+namespace ShopNowAngular.Repositories.ProductManagement.Products
 {
-    public class GetAllCategorySpDto
+    public interface IProductRepository
     {
     }
 }
