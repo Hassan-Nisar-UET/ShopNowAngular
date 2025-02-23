@@ -1,92 +1,128 @@
-@use '@angular/material' as mat;
 
-// Define primary, secondary, warn, and error palettes
-$mat-primary: mat.define-palette(mat.$indigo-palette, 500);
-$mat-secondary: mat.define-palette(mat.$teal-palette, 500);
-$mat-warn: mat.define-palette(mat.$red-palette, 500);
-$mat-error: mat.define-palette(mat.$deep-orange-palette, 500);
-
-// Define typography using the correct Material 15+ tokens
-$theme-typography: mat.define-typography-config(
-  $font-family: "Plus Jakarta Sans",
-  $headline-small: mat.define-typography-level(24px, 30px, 700),
-  $headline-medium: mat.define-typography-level(18px, 26px, 600),
-  $title-large: mat.define-typography-level(21px, 26px, 500),
-  $title-medium: mat.define-typography-level(14px, 14px, 400),
-  $body-large: mat.define-typography-level(16px, 22px, 400),
-  $body-medium: mat.define-typography-level(14px, 20px, 400),
-  $label-large: mat.define-typography-level(14px, 14px, 400)
+$mat-primary: (
+  100: #ffffff,
+  200: rgba(34, 0, 204, 0.05),
+  500: #001871,
+  700: #001871,
+  contrast: (
+    100: white,
+    500: white,
+    700: white,
+  ),
+);
+$mat-secondary: (
+  100: white,
+  500: #14CC8F,
+  700: #14CC8F,
+  contrast: (
+    100: white,
+    500: white,
+    700: white,
+  ),
 );
 
-// Define light theme
-$legaltheme: mat.define-theme((
-  color: (
-    primary: $mat-primary,
-    secondary: $mat-secondary,
-    warn: $mat-warn,
-    error: $mat-error,
+$mat-warn: (
+  100: #FDEDE8,
+  500: #001871,
+  700: #001871,
+  contrast: (
+    100: white,
+    500: white,
+    700: white,
   ),
-  typography: $theme-typography
-));
+);
 
-// Define dark theme
-$darklegaltheme: mat.define-theme((
-  color: (
-    primary: $mat-primary,
-    secondary: $mat-secondary,
-    warn: $mat-warn,
-    error: $mat-error,
+$mat-error: (
+  100: #FDEDE8,
+  500: #001871,
+  700: #001871,
+  contrast: (
+    100: white,
+    500: white,
+    700: white,
   ),
-  typography: $theme-typography,
-  density: -1
-));
+);
 
-// Apply the theme globally
-@include mat.core-theme($legaltheme);
-@include mat.button-theme($legaltheme);
-@include mat.core-color($legaltheme);
-@include mat.all-component-themes($legaltheme);
+$theme-primary: mat.define-palette($mat-primary, 500);
+$theme-accent: mat.define-palette($mat-secondary, 500);
+$theme-warn: mat.define-palette($mat-warn, 500);
+$theme-error: mat.define-palette($mat-error, 500);
 
-// Dark mode support (optional)
-.dark-theme {
-  @include mat.core-theme($darklegaltheme);
-  @include mat.button-theme($darklegaltheme);
-  @include mat.core-color($darklegaltheme);
-  @include mat.all-component-themes($darklegaltheme);
-}
+$legaltheme: mat.define-light-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+      warn: $theme-warn,
+      error: $theme-error,
+    ),
+    typography:
+      mat.define-typography-config(
+        $font-family: "Plus Jakarta Sans",
+        $subtitle-2: mat.define-typography-level(14px, 14px, 400),
+        $subtitle-1: mat.define-typography-level(21px, 26px, 500),
+        $headline-6: mat.define-typography-level(18px, 26px, 600),
+        $headline-5: mat.define-typography-level(24px, 30px, 700),
+        $button: mat.define-typography-level(14px, 14px, 400),
+        $body-1: mat.define-typography-level(14px, 20px, 400),
+        $body-2: mat.define-typography-level(16px, 22px, 400),
+      ),
+  )
+);
 
-// Background colors
+$darklegaltheme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+      warn: $theme-warn,
+      error: $theme-error,
+    ),
+    typography:
+      mat.define-typography-config(
+        $font-family: "Plus Jakarta Sans",
+        $subtitle-2: mat.define-typography-level(14px, 14px, 400),
+        $subtitle-1: mat.define-typography-level(21px, 26px, 500),
+        $headline-6: mat.define-typography-level(18px, 26px, 600),
+        $headline-5: mat.define-typography-level(24px, 30px, 700),
+        $button: mat.define-typography-level(14px, 14px, 400),
+        $body-1: mat.define-typography-level(14px, 20px, 400),
+        $body-2: mat.define-typography-level(16px, 22px, 400),
+      ),
+  )
+);
+
 .bg-primary {
-  background: mat.get-theme-color($legaltheme, primary) !important;
+  background: mat.get-color-from-palette($theme-primary, 500) !important;
 }
 
 .bg-light-primary {
-  background: mat.get-theme-color($legaltheme, secondary) !important;
+  background: mat.get-color-from-palette($theme-primary, 200) !important;
 }
 
-// Navbar active state
 .horizontal-navbar .parentBox.pactive > a,
 .horizontal-navbar .parentBox.pactive > a:hover,
 .horizontal-navbar .parentBox.pactive:hover > a {
-  background-color: mat.get-theme-color($legaltheme, primary) !important;
+  background-color: mat.get-color-from-palette($theme-primary, 500) !important;
 }
 
 .activeMenu {
-  background-color: mat.get-theme-color($legaltheme, primary) !important;
+  background-color: mat.get-color-from-palette($theme-primary, 500) !important;
 }
 
-// Outlined button border colors
+
+
 .mat-mdc-outlined-button {
   &.mat-primary {
-    border-color: mat.get-theme-color($legaltheme, primary) !important;
+    border-color: mat.get-color-from-palette($theme-primary, 500) !important;
   }
   &.mat-accent {
-    border-color: mat.get-theme-color($legaltheme, secondary) !important;
+    border-color: mat.get-color-from-palette($theme-accent, 500) !important;
   }
   &.mat-warn {
-    border-color: mat.get-theme-color($legaltheme, warn) !important;
+    border-color: mat.get-color-from-palette($theme-warn, 500) !important;
   }
   &.mat-error {
-    border-color: mat.get-theme-color($legaltheme, error) !important;
+    border-color: mat.get-color-from-palette($theme-error, 500) !important;
   }
 }

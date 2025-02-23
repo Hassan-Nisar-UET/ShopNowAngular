@@ -1,20 +1,20 @@
 
 
-
-<div class="bg-light-error rounded p-y-24 p-x-24 m-b-24 overflow-hidden ">
-    <div class="d-flex p-y-2">
-        <div class="">
-            <h4 class="page-title m-0 f-s-20 f-w-600 ">
+<div class="bg-light-error rounded p-y-20 p-x-24 m-b-24 overflow-hidden">
+    <div class="row align-items-center d-flex">
+        <div class="col-md-6">
+            <h4 class="page-title m-0 f-s-20 f-w-600">
                 Shops management
             </h4>
         </div>
-    </div>
-    <div >
-   <button mat-flat-button color="accent" (click)="showDialog()">
-     Add Shops 
-   </button>
+        <div class="col-md-6 d-flex justify-content-end">
+            <button mat-flat-button class="mat-warn" (click)="showDialog()">
+                Add Shops
+            </button>
+        </div>
     </div>
 </div>
+
 
 <mat-card class="cardWithShadow">
     <mat-card-content class="p-24">
@@ -74,8 +74,8 @@
 </mat-card>
 
 
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-8">Update your information.</span>
+<p-dialog header="Add Shops" [modal]="true" [(visible)]="visible" [style]="{ width: '70rem' }">
+    <!-- <span class="p-text-secondary block mb-8">Update your information.</span>
     <div class="flex items-center gap-4 mb-4">
         <label for="username" class="font-semibold w-24">Username</label>
         <input pInputText id="username" class="flex-auto" autocomplete="off" />
@@ -83,9 +83,110 @@
     <div class="flex items-center gap-4 mb-8">
         <label for="email" class="font-semibold w-24">Email</label>
         <input pInputText id="email" class="flex-auto" autocomplete="off" />
-    </div>
-    <div class="flex justify-end gap-2">
+    </div> -->
+
+
+    <!-- <div class="flex justify-end gap-2">
         <p-button label="Cancel" severity="secondary" (click)="visible = false" />
         <p-button label="Save" (click)="visible = false" />
+    </div> -->
+    <form [formGroup]="clientForm">
+        <mat-card class="cardWithShadow theme-card">
+            <div class="card p-x-20 flex justify-center">
+                <p-fieldset legend="Shop Information" [toggleable]="true">
+                    <div class="row  p-t-5">
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Shop Name</mat-label>
+                                <input matInput placeholder="Enter Shop Name">
+                              
+                            </mat-form-field>
+                        </div>
+        
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Shop Description</mat-label>
+                                <input matInput  placeholder="Enter Shop Description">
+                            
+                            </mat-form-field>
+                        </div>
+        
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Address</mat-label>
+                                <input matInput  placeholder="Enter shop or home address">                  
+                            </mat-form-field>
+                        </div>
+        
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Shop Type</mat-label>
+                                <mat-select>
+                                    <mat-option *ngFor="let shop of shopTypes" [value]="shop.value">
+                                        {{ shop.viewValue }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        
+                        
+        
+                    </div>
+        </p-fieldset>
     </div>
+    
+         
+               
+        
+    <div class="card p-x-20 flex justify-center" style="margin-top: 20px;">
+        <p-fieldset legend="Personal Information" [toggleable]="true">
+            <div class="row p-t-5">
+                <div class="col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Phone No</mat-label>
+                        <input matInput placeholder="Enter Phone no">
+                    </mat-form-field>
+                </div>
+    
+                <div class="col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Gmail</mat-label>
+                        <input matInput placeholder="Enter Gmail">
+                    </mat-form-field>
+                </div>
+    
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Country</mat-label>
+                        <input matInput placeholder="Enter Country">
+                    </mat-form-field>
+                </div>
+            </div>
+        </p-fieldset>
+    </div>
+    
+           
+
+
+
+
+        
+    
+            <div class="row m-t-24" style="margin-bottom: 20px;">
+                <div class="col-sm-12 d-flex justify-content-end gap-8">
+                    <button mat-raised-button>
+                        Cancel
+                    </button>
+                    <button mat-flat-button color="accent">
+                        Save and More
+                    </button>
+                    <!-- [disabled]="clientForm.invalid" -->
+                    <button mat-flat-button color="primary" type="submit"  >
+                        Save and Finish
+                    </button>
+                </div>
+            </div>
+        </mat-card>
+       
+    </form>
 </p-dialog>

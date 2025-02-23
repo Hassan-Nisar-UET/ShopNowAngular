@@ -9,7 +9,6 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-
 import { MenuModule } from 'primeng/menu';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
@@ -17,12 +16,24 @@ import { faEllipsisV, faPencilAlt, faHistory, faDatabase, faKey, faUserMinus, fa
 
 // Material Modules
 import { MatButtonModule } from '@angular/material/button';
+import { FieldsetModule } from 'primeng/fieldset';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
 @NgModule({
     declarations: [ShopsComponent],
     imports: [SharedModule, 
+      MatCheckboxModule,
+      FieldsetModule,
+      MatSelectModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
         ShopsRoutingModule,
         DialogModule,
         InputTextModule,

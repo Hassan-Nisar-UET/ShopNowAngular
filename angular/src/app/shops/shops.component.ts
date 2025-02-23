@@ -1,11 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-shops',
   templateUrl: './shops.component.html',
   styleUrl: './shops.component.css'
 })
-export class ShopsComponent {
+export class ShopsComponent implements OnInit {
+  clientForm: FormGroup = new FormGroup({});
+  ngOnInit() {
+    this.clientForm = new FormGroup({
+      id: new FormControl('', Validators.required),
+      title: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
+      surName: new FormControl('', Validators.required),
+      customGreetings: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      gender: new FormControl('', Validators.required),
+      address1: new FormControl('', Validators.required),
+      address2: new FormControl(''),
+      address3: new FormControl(''),
+      address4: new FormControl(''),
+      city: new FormControl('', Validators.required),
+      country: new FormControl('', Validators.required),
+      postCode: new FormControl('', Validators.required),
+      userName: new FormControl('', Validators.required)
+    });
+  }
+  
+  shopTypes = [
+    { value: 'retail', viewValue: 'Retail' },
+    { value: 'wholesale', viewValue: 'Wholesale' }
+  ];
+
+
   dataSource = [
     { id: 1, name: "John Doe", description: "Software Engineer", address: "123 Main St, NY", country: "USA", type: "Employee", phone: "+1 234 567 890", gmail: "johndoe@gmail.com" },
     { id: 2, name: "Jane Smith", description: "Graphic Designer", address: "456 Elm St, LA", country: "USA", type: "Freelancer", phone: "+1 987 654 321", gmail: "janesmith@gmail.com" },

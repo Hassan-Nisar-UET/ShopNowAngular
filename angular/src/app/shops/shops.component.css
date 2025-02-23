@@ -1,3 +1,25 @@
 /* .table-responsive{
     width:50vw;
 } */
+
+/* Styling mat-form-field border and text color */
+/* .custom-mat-field .mat-mdc-text-field-wrapper {
+    border-color: #cc0000 !important;
+}
+
+.custom-mat-field .mat-mdc-form-field-outline {
+    color: #cc0000 !important;
+}
+
+/* Change label color */
+/* .custom-mat-field .mat-mdc-floating-label {
+    color: #cc0000 !important;
+} */
+
+/* Change p-fieldset (Personal Information) color */
+/* ::ng-deep .custom-fieldset .p-fieldset-legend {
+    background-color: #cc0000 !important;
+    color: white !important;
+    padding: 5px 15px;
+    border-radius: 5px;
+}  */
